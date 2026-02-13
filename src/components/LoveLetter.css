@@ -1,0 +1,864 @@
+.love-letter-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: letterFadeIn 1s ease-out forwards;
+  overflow: hidden;
+}
+
+/* ==========================================
+   Characters Scene
+   ========================================== */
+.ll-scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 18vh;
+  transition: opacity 1s ease;
+}
+
+.ll-scene.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ===== Shared character ===== */
+.ll-char {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eye {
+  position: absolute;
+  width: 6px;
+  height: 7px;
+  background: #2c1810;
+  border-radius: 50%;
+  top: 24px;
+}
+
+.eye.left { left: 14px; }
+.eye.right { right: 14px; }
+
+/* Sparkle in eyes */
+.eye::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 2.5px;
+  height: 2.5px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.blush {
+  position: absolute;
+  width: 10px;
+  height: 6px;
+  border-radius: 50%;
+  top: 30px;
+  opacity: 0.5;
+}
+
+.blush.left { left: 8px; background: #ffb0b0; }
+.blush.right { right: 8px; background: #ffb0b0; }
+
+.mouth {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 5px;
+  border-bottom: 2.5px solid #d4917a;
+  border-radius: 0 0 50% 50%;
+}
+
+.mouth.smile {
+  width: 12px;
+  height: 6px;
+  border-bottom: 2.5px solid #e8837a;
+}
+
+/* ===== Boy (left) ===== */
+.ll-boy {
+  position: absolute;
+  left: 15%;
+  bottom: 18vh;
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ll-boy.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ll-boy.threw {
+  animation: boyThrow 0.5s ease forwards;
+}
+
+.boy-hair {
+  width: 54px;
+  height: 28px;
+  background: linear-gradient(180deg, #2a1e14, #3d2c1e);
+  border-radius: 28px 28px 4px 4px;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -12px;
+}
+
+/* Side sweep */
+.boy-hair::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: -3px;
+  width: 16px;
+  height: 18px;
+  background: #3d2c1e;
+  border-radius: 0 60% 30% 0;
+  transform: rotate(10deg);
+}
+
+.boy-head {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #ffe4c9 0%, #f5d0b0 60%, #ebb89a 100%);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
+}
+
+/* Ear */
+.boy-head::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: -5px;
+  width: 10px;
+  height: 12px;
+  background: #f0c8a8;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.boy-neck {
+  width: 16px;
+  height: 8px;
+  background: #f0c8a8;
+  margin-top: -2px;
+  z-index: 0;
+}
+
+.boy-torso {
+  width: 56px;
+  height: 60px;
+  background: linear-gradient(180deg, #5b92e5, #4478d4);
+  border-radius: 18px 18px 10px 10px;
+  margin-top: -4px;
+  box-shadow: 0 6px 20px rgba(68, 120, 212, 0.3);
+  position: relative;
+  z-index: 0;
+}
+
+.boy-collar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 14px solid #fff;
+}
+
+/* Boy right arm (throwing) */
+.boy-arm-r {
+  position: absolute;
+  top: 70px;
+  right: -8px;
+  width: 16px;
+  height: 44px;
+  background: linear-gradient(180deg, #5b92e5, #4a80d0);
+  border-radius: 8px;
+  transform-origin: top center;
+  transform: rotate(-10deg);
+  transition: transform 0.4s ease;
+  z-index: 3;
+}
+
+.boy-arm-r.throw-arm {
+  animation: armThrow 0.5s ease forwards;
+}
+
+.boy-hand {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: #f0c8a8;
+  border-radius: 50%;
+}
+
+/* Boy left arm */
+.boy-arm-l {
+  position: absolute;
+  top: 70px;
+  left: -6px;
+  width: 16px;
+  height: 40px;
+  background: linear-gradient(180deg, #5b92e5, #4a80d0);
+  border-radius: 8px;
+  transform: rotate(8deg);
+  z-index: -1;
+}
+
+.boy-arm-l::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: #f0c8a8;
+  border-radius: 50%;
+}
+
+.boy-legs {
+  display: flex;
+  gap: 6px;
+  margin-top: -4px;
+}
+
+.boy-leg {
+  width: 18px;
+  height: 50px;
+  background: linear-gradient(180deg, #3a4a6b, #2d3a55);
+  border-radius: 6px 6px 8px 8px;
+}
+
+/* Shoes */
+.boy-leg::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  width: 22px;
+  height: 10px;
+  background: #444;
+  border-radius: 6px 10px 4px 4px;
+}
+
+.boy-leg.left::after { left: -2px; }
+.boy-leg.right::after { right: -2px; }
+
+/* ===== Girl (right) ===== */
+.ll-girl {
+  position: absolute;
+  right: 15%;
+  bottom: 18vh;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ll-girl.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ll-girl.caught {
+  animation: girlCatch 0.4s ease forwards;
+}
+
+/* Hair back layer */
+.girl-hair-back {
+  position: absolute;
+  top: 6px;
+  left: -10px;
+  width: 76px;
+  height: 80px;
+  background: linear-gradient(180deg, #1a1010, #2a1a12);
+  border-radius: 40px 40px 12px 12px;
+  z-index: -1;
+}
+
+/* Wave curls */
+.girl-hair-back::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 2px;
+  width: 22px;
+  height: 28px;
+  background: #2a1a12;
+  border-radius: 0 0 50% 50%;
+}
+
+.girl-hair-back::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 2px;
+  width: 22px;
+  height: 26px;
+  background: #2a1a12;
+  border-radius: 0 0 50% 50%;
+}
+
+.girl-head {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #ffe8d4 0%, #ffd8be 60%, #f0c4a4 100%);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
+}
+
+.girl-hair-front {
+  position: absolute;
+  top: -4px;
+  left: -2px;
+  right: -2px;
+  height: 28px;
+  background: linear-gradient(180deg, #1a1010, #2a1a12);
+  border-radius: 30px 30px 0 0;
+  z-index: 2;
+}
+
+/* Bangs */
+.girl-hair-front::before {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 4px;
+  width: 24px;
+  height: 12px;
+  background: #2a1a12;
+  border-radius: 0 0 50% 30%;
+}
+
+/* Ear */
+.girl-head::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: -4px;
+  width: 9px;
+  height: 11px;
+  background: #f5ccac;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Earring */
+.girl-head::after {
+  content: '';
+  position: absolute;
+  top: 30px;
+  right: -5px;
+  width: 5px;
+  height: 5px;
+  background: #ffd700;
+  border-radius: 50%;
+  box-shadow: 0 0 4px #ffd70088;
+  z-index: 0;
+}
+
+.girl-bow {
+  position: absolute;
+  top: -2px;
+  right: 2px;
+  width: 18px;
+  height: 12px;
+  z-index: 10;
+}
+
+.girl-bow::before,
+.girl-bow::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 8px;
+  background: #ff4d6d;
+  border-radius: 50% 50% 50% 0;
+  top: 0;
+}
+
+.girl-bow::before {
+  left: 0;
+  transform: rotate(-30deg);
+}
+
+.girl-bow::after {
+  right: 0;
+  transform: rotate(30deg) scaleX(-1);
+}
+
+.girl-neck {
+  width: 14px;
+  height: 8px;
+  background: #f5ccac;
+  margin-top: -2px;
+  z-index: 0;
+  position: relative;
+}
+
+/* Necklace */
+.girl-neck::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #ffd700;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #ffd70066;
+}
+
+.girl-dress {
+  width: 54px;
+  height: 50px;
+  background: linear-gradient(180deg, #ff7eb3, #ff5c8d);
+  border-radius: 16px 16px 4px 4px;
+  margin-top: -4px;
+  box-shadow: 0 6px 20px rgba(255, 77, 109, 0.3);
+  position: relative;
+  z-index: 0;
+}
+
+.girl-collar {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 10px;
+  border-radius: 0 0 50% 50%;
+  background: #ffb3cc;
+}
+
+/* Girl left arm (catching) */
+.girl-arm-l {
+  position: absolute;
+  top: 68px;
+  left: -8px;
+  width: 14px;
+  height: 42px;
+  background: linear-gradient(180deg, #ff7eb3, #ff6da0);
+  border-radius: 8px;
+  transform-origin: top center;
+  transform: rotate(10deg);
+  transition: transform 0.4s ease;
+  z-index: 3;
+}
+
+.girl-arm-l.catch-arm {
+  animation: armCatch 0.4s ease forwards;
+}
+
+.girl-hand {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 13px;
+  height: 13px;
+  background: #f5ccac;
+  border-radius: 50%;
+}
+
+/* Girl right arm */
+.girl-arm-r {
+  position: absolute;
+  top: 68px;
+  right: -6px;
+  width: 14px;
+  height: 38px;
+  background: linear-gradient(180deg, #ff7eb3, #ff6da0);
+  border-radius: 8px;
+  transform: rotate(-8deg);
+  z-index: -1;
+}
+
+.girl-arm-r::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 13px;
+  height: 13px;
+  background: #f5ccac;
+  border-radius: 50%;
+}
+
+.girl-skirt {
+  width: 68px;
+  height: 32px;
+  background: linear-gradient(180deg, #ff5c8d, #ff7eb3);
+  border-radius: 0 0 50% 50%;
+  margin-top: -6px;
+  position: relative;
+  z-index: 0;
+}
+
+/* Skirt ruffle */
+.girl-skirt::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 4px;
+  right: 4px;
+  height: 6px;
+  background: #ffb3cc;
+  border-radius: 0 0 50% 50%;
+  opacity: 0.6;
+}
+
+.girl-legs {
+  display: flex;
+  gap: 8px;
+  margin-top: -6px;
+  position: relative;
+  z-index: -1;
+}
+
+.girl-leg {
+  width: 14px;
+  height: 44px;
+  background: linear-gradient(180deg, #ffd5b8, #f5ccac);
+  border-radius: 4px 4px 6px 6px;
+  position: relative;
+}
+
+/* Shoes */
+.girl-leg::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  width: 18px;
+  height: 8px;
+  background: #ff4d6d;
+  border-radius: 6px 8px 4px 4px;
+}
+
+.girl-leg.left::after { left: -2px; }
+.girl-leg.right::after { right: -2px; }
+
+/* ===== Flying Envelope ===== */
+.ll-flying-envelope {
+  position: absolute;
+  left: calc(15% + 40px);
+  bottom: calc(18vh + 50px);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: none;
+  z-index: 5;
+}
+
+.ll-flying-envelope.fly {
+  animation: envelopeFly 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.ll-flying-envelope.at-girl {
+  animation: none;
+  left: calc(85% - 80px);
+  bottom: calc(18vh + 60px);
+  opacity: 1;
+  transform: scale(1);
+  animation: envelopeBounce 0.4s ease forwards;
+}
+
+.ll-mini-envelope {
+  width: 60px;
+  height: 40px;
+  position: relative;
+}
+
+.ll-mini-body {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 32px;
+  background: linear-gradient(135deg, #f5e6d8, #e8d5c4);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.ll-mini-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  background: linear-gradient(180deg, #d4c0ae, #e8d5c4);
+  clip-path: polygon(0 0, 50% 70%, 100% 0);
+}
+
+.ll-heart-seal {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #ff4d6d;
+  z-index: 1;
+}
+
+/* Hearts trail */
+.ll-hearts-trail {
+  position: absolute;
+  left: 30%;
+  bottom: calc(18vh + 80px);
+  pointer-events: none;
+}
+
+.ll-trail-heart {
+  position: absolute;
+  color: #ff4d6d;
+  font-size: 12px;
+  opacity: 0;
+  animation: trailHeart 1.5s ease-out forwards;
+  animation-delay: calc(var(--i) * 0.2s);
+}
+
+/* ==========================================
+   Letter Area (envelope open + paper)
+   ========================================== */
+.ll-letter-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+
+/* ===== Envelope ===== */
+.envelope {
+  position: absolute;
+  width: 320px;
+  height: 200px;
+  z-index: 1;
+  transition: transform 1s ease, opacity 0.8s ease;
+  animation: envelopeAppear 0.6s ease-out forwards;
+}
+
+.envelope-body {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(135deg, #e8d5c4 0%, #f5e6d8 50%, #e8d5c4 100%);
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(180deg, #d4c0ae 0%, #e8d5c4 100%);
+  clip-path: polygon(0 0, 50% 70%, 100% 0);
+  transform-origin: top center;
+  transition: transform 0.8s ease;
+  z-index: 2;
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.envelope.open {
+  transform: translateY(80px) scale(0.8);
+  opacity: 0;
+}
+
+/* ===== Letter paper ===== */
+.letter-paper {
+  position: relative;
+  width: min(480px, 85vw);
+  background: linear-gradient(
+    180deg,
+    #fdf8f0 0%,
+    #faf3e8 50%,
+    #f5ebe0 100%
+  );
+  border-radius: 4px;
+  padding: 28px 36px;
+  box-shadow:
+    0 4px 40px rgba(0, 0, 0, 0.3),
+    0 0 80px rgba(255, 77, 109, 0.1),
+    inset 0 0 60px rgba(255, 200, 180, 0.08);
+  opacity: 0;
+  transform: translateY(60px) scale(0.9);
+  transition: opacity 1s ease, transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 2;
+}
+
+.letter-paper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 30px;
+  right: 30px;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    transparent 0px,
+    transparent 25px,
+    #e8d5c488 25px,
+    #e8d5c488 26px
+  );
+  pointer-events: none;
+}
+
+.letter-paper.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ===== Letter content ===== */
+.letter-content {
+  position: relative;
+  z-index: 1;
+}
+
+.letter-line {
+  font-family: 'Dancing Script', cursive;
+  font-size: 17px;
+  line-height: 26px;
+  color: #4a3728;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.letter-line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.letter-line:first-child {
+  font-size: 21px;
+  font-weight: 700;
+  color: #8b4557;
+  margin-bottom: 2px;
+}
+
+.letter-line:last-child {
+  color: #c0506a;
+  font-weight: 700;
+}
+
+.letter-line:nth-last-child(2) {
+  font-style: italic;
+  color: #6b4040;
+}
+
+/* ==========================================
+   Keyframes
+   ========================================== */
+@keyframes letterFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes boyThrow {
+  0% { transform: translateX(0); }
+  30% { transform: translateX(10px) rotate(-6deg); }
+  60% { transform: translateX(4px) rotate(-2deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+@keyframes armThrow {
+  0% { transform: rotate(-10deg); }
+  30% { transform: rotate(-80deg); }
+  60% { transform: rotate(-40deg); }
+  100% { transform: rotate(-15deg); }
+}
+
+@keyframes girlCatch {
+  0% { transform: translateX(0); }
+  40% { transform: translateX(-8px) scale(1.06); }
+  70% { transform: translateX(-2px) scale(1.02); }
+  100% { transform: translateX(0) scale(1); }
+}
+
+@keyframes armCatch {
+  0% { transform: rotate(10deg); }
+  40% { transform: rotate(60deg); }
+  70% { transform: rotate(30deg); }
+  100% { transform: rotate(15deg); }
+}
+
+@keyframes envelopeFly {
+  0% {
+    opacity: 1;
+    transform: scale(0.8) rotate(0deg);
+    left: calc(15% + 40px);
+    bottom: calc(18vh + 50px);
+  }
+  30% {
+    transform: scale(1.1) rotate(-15deg);
+    bottom: calc(18vh + 200px);
+  }
+  60% {
+    transform: scale(1) rotate(10deg);
+    bottom: calc(18vh + 180px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-5deg);
+    left: calc(85% - 80px);
+    bottom: calc(18vh + 60px);
+  }
+}
+
+@keyframes envelopeBounce {
+  0% { transform: scale(1) rotate(-5deg); }
+  50% { transform: scale(1.2) rotate(0deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes trailHeart {
+  0% {
+    opacity: 0.8;
+    transform: translate(calc(var(--i) * 40px), calc(var(--i) * -20px + 10px)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--i) * 40px), calc(var(--i) * -20px - 30px)) scale(0.4);
+  }
+}
+
+@keyframes envelopeAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

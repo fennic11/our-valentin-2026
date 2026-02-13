@@ -1,0 +1,266 @@
+.album-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  animation: albumFadeIn 0.8s ease-out forwards;
+}
+
+.album-title {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.album-title-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffccd5;
+  text-shadow: 0 0 15px #ff4d6d88;
+}
+
+.album-hint {
+  position: absolute;
+  bottom: 60px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  color: #ffccd588;
+  animation: hintPulse 2s ease-in-out infinite;
+}
+
+.album-dots {
+  position: absolute;
+  bottom: 30px;
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff33;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: #ff4d6d;
+  box-shadow: 0 0 10px #ff4d6d88;
+  transform: scale(1.3);
+}
+
+.album-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================
+   VIEW 0 — Globe (Three.js)
+   ========================================== */
+.globe-3d-container {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  animation: globeContainerIn 1.5s ease-out forwards;
+  position: relative;
+}
+
+.globe-3d-container:active {
+  cursor: grabbing;
+}
+
+/* Vignette overlay when flying in */
+.globe-3d-container.globe-flying-in::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(26, 10, 20, 0.4) 60%,
+    rgba(13, 5, 9, 0.85) 100%
+  );
+  animation: vignetteIn 2s ease-out forwards;
+  z-index: 1;
+}
+
+/* Fade-out when transitioning to next view */
+.globe-3d-container.globe-fade-out {
+  animation: globeFadeOut 0.8s ease-in forwards;
+}
+
+.globe-3d-container.globe-fade-out::after {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(13, 5, 9, 0.3) 0%,
+    rgba(13, 5, 9, 0.95) 100%
+  );
+}
+
+@keyframes globeContainerIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes vignetteIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes globeFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ==========================================
+   VIEW 1 — Filmstrip
+   ========================================== */
+.filmstrip-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.filmstrip-track {
+  display: flex;
+  gap: 0;
+  animation: filmstripScroll 25s linear infinite;
+  padding: 20px 0;
+}
+
+.filmstrip-frame {
+  flex-shrink: 0;
+  width: 200px;
+  background: #1a1a1a;
+  border-left: 2px solid #333;
+  border-right: 2px solid #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  animation: filmFrameIn 0.5s ease-out forwards;
+  animation-delay: calc(var(--i) * 0.08s);
+}
+
+.filmstrip-frame img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.filmstrip-holes {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 6px 10px;
+}
+
+.filmstrip-holes .hole {
+  width: 14px;
+  height: 10px;
+  border-radius: 3px;
+  background: #0d0509;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes filmstripScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes filmFrameIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ==========================================
+   VIEW 2 — 3D Carousel
+   ========================================== */
+.carousel-track {
+  width: 260px;
+  height: 340px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: carouselSpin 20s linear infinite;
+}
+
+.carousel-card {
+  position: absolute;
+  width: 220px;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  transform: rotateY(var(--angle)) translateZ(350px);
+  opacity: 0;
+  animation: carouselCardIn 0.6s ease-out forwards;
+  animation-delay: calc(var(--i) * 0.1s);
+  border: 2px solid #ff4d6d44;
+}
+
+.carousel-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================
+   Keyframes
+   ========================================== */
+@keyframes albumFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes carouselSpin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+@keyframes carouselCardIn {
+  from {
+    opacity: 0;
+    transform: rotateY(var(--angle)) translateZ(200px) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(var(--angle)) translateZ(350px) scale(1);
+  }
+}
