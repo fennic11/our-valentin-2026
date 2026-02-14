@@ -227,3 +227,35 @@
     opacity: 0;
   }
 }
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .gift-box {
+    transform: scale(0.8);
+  }
+
+  .gift-box:hover:not(.shaking):not(.opening) {
+    transform: scale(0.86) translateY(-4px);
+  }
+
+  .gift-text {
+    font-size: 28px;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gift-box {
+    transform: scale(0.65);
+  }
+
+  .gift-box:hover:not(.shaking):not(.opening) {
+    transform: scale(0.7) translateY(-3px);
+  }
+
+  .gift-text {
+    font-size: 22px;
+    margin-top: 20px;
+    padding: 0 16px;
+  }
+}

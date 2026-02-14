@@ -862,3 +862,189 @@
     transform: scale(1);
   }
 }
+
+/* ===== Responsive ===== */
+@keyframes envelopeFlyTablet {
+  0% {
+    opacity: 1;
+    transform: scale(0.8) rotate(0deg);
+    left: calc(10% + 30px);
+    bottom: calc(14vh + 40px);
+  }
+  30% {
+    transform: scale(1.1) rotate(-15deg);
+    bottom: calc(14vh + 160px);
+  }
+  60% {
+    transform: scale(1) rotate(10deg);
+    bottom: calc(14vh + 140px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-5deg);
+    left: calc(90% - 70px);
+    bottom: calc(14vh + 50px);
+  }
+}
+
+@keyframes envelopeFlyMobile {
+  0% {
+    opacity: 1;
+    transform: scale(0.7) rotate(0deg);
+    left: calc(5% + 20px);
+    bottom: calc(10vh + 30px);
+  }
+  30% {
+    transform: scale(0.9) rotate(-15deg);
+    bottom: calc(10vh + 120px);
+  }
+  60% {
+    transform: scale(0.85) rotate(10deg);
+    bottom: calc(10vh + 100px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(0.8) rotate(-5deg);
+    left: calc(95% - 60px);
+    bottom: calc(10vh + 40px);
+  }
+}
+
+@media (max-width: 768px) {
+  .ll-scene {
+    padding-bottom: 14vh;
+  }
+
+  .ll-boy {
+    left: 10%;
+    bottom: 14vh;
+    transform: scale(0.85) translateX(-50px);
+  }
+
+  .ll-boy.visible {
+    transform: scale(0.85) translateX(0);
+  }
+
+  .ll-girl {
+    right: 10%;
+    bottom: 14vh;
+    transform: scale(0.85) translateX(50px);
+  }
+
+  .ll-girl.visible {
+    transform: scale(0.85) translateX(0);
+  }
+
+  .ll-flying-envelope {
+    left: calc(10% + 30px);
+    bottom: calc(14vh + 40px);
+  }
+
+  .ll-flying-envelope.fly {
+    animation-name: envelopeFlyTablet;
+  }
+
+  .ll-flying-envelope.at-girl {
+    left: calc(90% - 70px);
+    bottom: calc(14vh + 50px);
+  }
+
+  .envelope {
+    width: 260px;
+    height: 165px;
+  }
+
+  .envelope-body {
+    height: 130px;
+  }
+
+  .envelope-flap {
+    height: 100px;
+  }
+
+  .letter-paper {
+    padding: 24px 28px;
+  }
+
+  .letter-line {
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .letter-line:first-child {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ll-scene {
+    padding-bottom: 10vh;
+  }
+
+  .ll-boy {
+    left: 5%;
+    bottom: 10vh;
+    transform: scale(0.7) translateX(-40px);
+  }
+
+  .ll-boy.visible {
+    transform: scale(0.7) translateX(0);
+  }
+
+  .ll-girl {
+    right: 5%;
+    bottom: 10vh;
+    transform: scale(0.7) translateX(40px);
+  }
+
+  .ll-girl.visible {
+    transform: scale(0.7) translateX(0);
+  }
+
+  .ll-flying-envelope {
+    left: calc(5% + 20px);
+    bottom: calc(10vh + 30px);
+    transform: scale(0.5);
+  }
+
+  .ll-flying-envelope.fly {
+    animation-name: envelopeFlyMobile;
+  }
+
+  .ll-flying-envelope.at-girl {
+    left: calc(95% - 60px);
+    bottom: calc(10vh + 40px);
+  }
+
+  .ll-hearts-trail {
+    left: 20%;
+    bottom: calc(10vh + 60px);
+  }
+
+  .envelope {
+    width: 220px;
+    height: 140px;
+  }
+
+  .envelope-body {
+    height: 110px;
+  }
+
+  .envelope-flap {
+    height: 85px;
+  }
+
+  .letter-paper {
+    padding: 20px 20px;
+    width: min(420px, 90vw);
+  }
+
+  .letter-line {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .letter-line:first-child {
+    font-size: 16px;
+  }
+}

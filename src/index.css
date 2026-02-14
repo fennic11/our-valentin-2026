@@ -9,4 +9,6 @@ html, body, #root {
   height: 100%;
   overflow: hidden;
   background: #1a0a14;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }

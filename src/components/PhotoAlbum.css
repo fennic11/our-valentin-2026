@@ -264,3 +264,110 @@
     transform: rotateY(var(--angle)) translateZ(350px) scale(1);
   }
 }
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .album-title-text {
+    font-size: 28px;
+  }
+
+  .album-hint {
+    font-size: 16px;
+    bottom: 50px;
+  }
+
+  .album-title {
+    top: 20px;
+  }
+
+  .filmstrip-frame {
+    width: 150px;
+  }
+
+  .filmstrip-frame img {
+    height: 200px;
+  }
+
+  .carousel-track {
+    width: 200px;
+    height: 270px;
+  }
+
+  .carousel-card {
+    width: 170px;
+    height: 230px;
+    transform: rotateY(var(--angle)) translateZ(250px);
+    animation-name: carouselCardInTablet;
+  }
+}
+
+@keyframes carouselCardInMobile {
+  from {
+    opacity: 0;
+    transform: rotateY(var(--angle)) translateZ(100px) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(var(--angle)) translateZ(180px) scale(1);
+  }
+}
+
+@keyframes carouselCardInTablet {
+  from {
+    opacity: 0;
+    transform: rotateY(var(--angle)) translateZ(150px) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(var(--angle)) translateZ(250px) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .album-title-text {
+    font-size: 22px;
+  }
+
+  .album-hint {
+    font-size: 14px;
+    bottom: 44px;
+  }
+
+  .album-title {
+    top: 16px;
+  }
+
+  .filmstrip-frame {
+    width: 120px;
+  }
+
+  .filmstrip-frame img {
+    height: 160px;
+  }
+
+  .filmstrip-holes .hole {
+    width: 10px;
+    height: 7px;
+  }
+
+  .carousel-track {
+    width: 160px;
+    height: 220px;
+  }
+
+  .carousel-card {
+    width: 140px;
+    height: 190px;
+    transform: rotateY(var(--angle)) translateZ(180px);
+    animation-name: carouselCardInMobile;
+  }
+
+  .album-dots {
+    bottom: 20px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+}

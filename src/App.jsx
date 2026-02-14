@@ -9,6 +9,7 @@ import './App.css'
 
 function App() {
   const [phase, setPhase] = useState('waiting')
+  const heartCount = window.innerWidth <= 480 ? 20 : window.innerWidth <= 768 ? 35 : 50
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase('greeting'), 5000)
@@ -18,7 +19,7 @@ function App() {
 
   return (
     <div className="scene">
-      <FloatingHearts count={50} />
+      <FloatingHearts count={heartCount} />
       {phase === 'greeting' && <Greeting />}
       {phase === 'gift' && <GiftOverlay onOpen={() => setPhase('countDayLove')} />}
       {phase === 'countDayLove' && <CountDayLove onOpenAlbum={() => setPhase('album')} />}
